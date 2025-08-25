@@ -1,0 +1,9 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  background-color: brown;
+}
+.text {
+  color: yellow;
+}

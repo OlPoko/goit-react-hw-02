@@ -1,26 +1,14 @@
-import styles from "./Options.module.css";
-const Options = ({ updateFeedback, resetFeedback, totalFeedback }) => {
+export default function Options({
+  onLeaveFeedback,
+  totalFeedback,
+  resetFeedback,
+}) {
   return (
-    <div>
-      <button className={styles.button} onClick={() => updateFeedback("good")}>
-        Good
-      </button>
-      <button
-        className={styles.button}
-        onClick={() => updateFeedback("neutral")}
-      >
-        Neutral
-      </button>
-      <button className={styles.button} onClick={() => updateFeedback("bad")}>
-        Bad
-      </button>
-      {totalFeedback > 0 && (
-        <button className={styles.reset} onClick={resetFeedback}>
-          Reset
-        </button>
-      )}
-    </div>
+    <>
+      <button onClick={() => onLeaveFeedback("good")}>Good</button>
+      <button onClick={() => onLeaveFeedback("neutral")}>Neutral</button>
+      <button onClick={() => onLeaveFeedback("bad")}>Bad</button>
+      {totalFeedback !== 0 && <button onClick={resetFeedback}>Reset</button>}
+    </>
   );
-};
-
-export default Options;
+}
