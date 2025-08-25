@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
@@ -12,10 +12,22 @@ export default function App() {
   // const openSidebar = () => setIsOpen(true);
   // const closeSidebar = () => setIsOpen(false);
 
-  const [count, setCount] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0,
+  // const [count, setCount] = useState({
+  //   good: 0,
+  //   neutral: 0,
+  //   bad: 0,
+  // });
+
+  const [count, setCount] = useState(() => {
+    const savedFeedback = window.localStorage.getItem("reader");
+    if (savedFeedback !== 0) {
+      return JSON.parse(savedFeedback);
+    }
+    return {
+      good: 0,
+      neutral: 0,
+      bad: 0,
+    };
   });
 
   const updateFeedback = (feedbackType) => {
@@ -29,6 +41,10 @@ export default function App() {
   const resetFeedback = () => {
     setCount({ good: 0, neutral: 0, bad: 0 });
   };
+
+  useEffect(() => {
+    window.localStorage.setItem("reader", JSON.stringify(count));
+  }, [count]);
 
   const positiveFeedback = Math.round((count.good / totalFeedback) * 100);
 
